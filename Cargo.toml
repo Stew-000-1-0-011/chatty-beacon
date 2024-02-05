@@ -1,0 +1,33 @@
+# Stew hokanimo add.
+
+[package]
+name = "chatty-beacon"
+version = "0.1.0"
+authors = ["Stew <92617876+Stew-000-1-0-011@users.noreply.github.com>"]
+edition = "2021"
+
+[dependencies]
+esp32c3-hal = "0.15.0"
+esp-backtrace = { version = "0.10.0", features = ["esp32c3", "panic-handler", "exception-handler", "print-uart"] }
+esp-println = { version = "0.8.0", features = ["esp32c3"] }
+
+esp-hal-common = { version = "0.15.0", features = ["esp32c3", "embedded-io"] }
+embedded-io = { version = "0.6.1"}
+
+embedded-svc = { version = "0.27.0", default-features = false, features = [] }
+smoltcp = { version = "0.11.0", default-features = false, features = ["medium-ethernet", "socket-raw"] }
+heapless = { version = "0.8.0", default-features = false, features = ["portable-atomic"] }
+
+[dependencies.esp-wifi]
+git = "https://github.com/esp-rs/esp-wifi.git"
+branch = "main"
+features = ["esp32c3", "wifi", "dhcpv4", "utils", "tcp", "dns"]
+
+# Stew add. (Follow https://github.com/esp-rs/esp-wifi/blob/main/esp-wifi/README.md)
+[profile.dev.package.esp-wifi]
+opt-level = 3
+
+[profile.dev]
+lto = "off"
+[profile.release]
+lto = "off"
